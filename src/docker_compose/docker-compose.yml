@@ -11,8 +11,8 @@ services:
     links:
       - mysql
     volumes: 
-      - "contao-files:/var/www/html/files"
-      - "contao-templates:/var/www/html/templates"
+      - "./contao-files:/var/www/html/files"
+      - "./contao-templates:/var/www/html/templates"
     
   mysql:
     container_name: contao-db
@@ -23,7 +23,7 @@ services:
       MYSQL_PASSWORD: 'contao'
       MYSQL_ROOT_PASSWORD: 'somerootpwd'
     volumes: 
-      - "my-db:/var/lib/mysql"
+      - "./mysql_data:/var/lib/mysql"
 
   phpmyadmin:
     container_name: contao-pma
@@ -36,7 +36,4 @@ services:
       - mysql
 
 volumes:
-  my-db:
-  contao-files:
-  contao-templates:
   
