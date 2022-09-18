@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  contao:
+    container_name: contao-web
+    image: "dev-contao:latest"
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    volumes: 
+      - "contao-files:/var/www/html/files"
+      - "contao-templates:/var/www/html/templates"
+    
+  mysql:
+    container_name: contao-db
+    image: "mysql:latest"
+    environment: 
+      MYSQL_DATABASE: 'contao'
+      MYSQL_USER: 'contao'
+      MYSQL_PASSWORD: 'contao'
+      MYSQL_ROOT_PASSWORD: 'somerootpwd'
+    volumes: 
+      - "my-db:/var/lib/mysql"
+
+  phpmyadmin:
+    container_name: contao-pma
+    image: "nazarpc/phpmyadmin"
+    ports: 
+      - "8888:80"
+    links:
+      - mysql
+    depends_on:
+      - mysql
+
+volumes:
+  my-db:
+  contao-files:
+  contao-templates:
+  
